@@ -4,6 +4,8 @@ import hello.core.AppConfig;
 import hello.core.member.MemberService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -37,6 +39,17 @@ public class SingletonTest {
 
         // equal는 자바에서 equals랑 똑같다.
         assertThat(singletonService1).isEqualTo(singletonService2);
+    }
+
+    @DisplayName("스프링 컨테이너와 싱글톤")
+    @Test
+    void spirngContainer() {
+        ApplicationContext appConfig = new AnnotationConfigApplicationContext(AppConfig.class);
+
+        MemberService memberService1 = appConfig.getBean("memberService", MemberService.class);
+        MemberService memberService2 = appConfig.getBean("memberService", MemberService.class);
+
+        assertThat(memberService1).isSameAs(memberService2);
     }
 
 }

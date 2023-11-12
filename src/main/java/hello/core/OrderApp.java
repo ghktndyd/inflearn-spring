@@ -12,7 +12,7 @@ public class OrderApp {
     public static void main(String[] args) {
 
 //        AppConfig appConfig = new AppConfig();
-//
+
 //        OrderService orderService = appConfig.orderService();
 //        MemberService memberService = appConfig.memberService();
 

@@ -1,5 +1,7 @@
 package hello.core;
 
+import hello.core.member.MemoryMemberRepository;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
@@ -13,6 +15,10 @@ import org.springframework.context.annotation.FilterType;
 // @ComponentScan 은 이름 그대로 @Component가 붙은 클래스를 스캔해서 스프링 빈으로 등록한다.
 public class AutoAppConfig {
 
+    @Bean(name = "memoryMemberRepository")
+    MemoryMemberRepository memberRepository() {
+        return new MemoryMemberRepository();
+    }
 }
 
 // 지정하지 않으면 default packages는 @ComponentScan이 붙은 클래스가 스캔의 시작 위치가 된다.

@@ -30,3 +30,8 @@ public class AutoAppConfigTest {
  * 생성자에 @Autowired가 붙어있으면 스프링 컨테이너가 자동으로 해당 스프링 빈을 찾아서 주입한다.
  * 첫 번째로 타입이 같은 빈을 찾아서 주입한다.
  */
+
+/**
+ * ConflictingBeanDefinitionException -> 빈 중에 이름이 같은 게 있다.
+ * 최근 스프링부트는 수동 빈 등록과 자동 빈 등록이 겹친다면 에러를 발생시킨다.
+ */

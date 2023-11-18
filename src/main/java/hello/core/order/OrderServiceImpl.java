@@ -1,5 +1,6 @@
 package hello.core.order;
 
+import hello.core.annotation.MainDiscountPolicy;
 import hello.core.discount.DiscountPolicy;
 import hello.core.member.Member;
 import hello.core.member.MemberRepository;
@@ -15,7 +16,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     public OrderServiceImpl(MemberRepository memberRepository,
-                            DiscountPolicy discountPolicy) { /* Bean이 만약에 2개 이상이라면 파라미터명으로 구분한다. */
+                            @MainDiscountPolicy DiscountPolicy discountPolicy) { /* Bean이 만약에 2개 이상이라면 파라미터명으로 구분한다. */
         this.memberRepository = memberRepository;
         this.discountPolicy = discountPolicy;
     }

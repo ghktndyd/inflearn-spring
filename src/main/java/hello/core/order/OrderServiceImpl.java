@@ -14,7 +14,8 @@ public class OrderServiceImpl implements OrderService {
     private final DiscountPolicy discountPolicy;
 
     @Autowired
-    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
+    public OrderServiceImpl(MemberRepository memberRepository,
+                            DiscountPolicy discountPolicy) { /* Bean이 만약에 2개 이상이라면 파라미터명으로 구분한다. */
         this.memberRepository = memberRepository;
         this.discountPolicy = discountPolicy;
     }

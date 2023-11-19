@@ -1,5 +1,8 @@
 package hello.core.lifecycle;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
 public class NetworkClient {
 
     private String url;
@@ -26,6 +29,7 @@ public class NetworkClient {
         System.out.println("close = " + url);
     }
 
+    @PostConstruct
     public void init() {
         /* 이 메세지가 나온다는 건 스프링 빈이 모두 생성되었다는 것이다. */
         System.out.println("NetworkClient.init");
@@ -33,6 +37,7 @@ public class NetworkClient {
 
     }
 
+    @PreDestroy
     public void close() {
         /* 이 메세지가 나온다는 건 종료할 준비가 되었다는 뜻이다. 모든 빈을 소멸한다.*/
         System.out.println("NetworkClient.close");

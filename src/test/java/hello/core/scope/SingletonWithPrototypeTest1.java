@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Scope;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.inject.Provider;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -34,7 +35,7 @@ public class SingletonWithPrototypeTest1 {
 
         ClientBean clientBean2 = ac.getBean(ClientBean.class);
         int count2 = clientBean2.logic();
-        assertThat(count2).isEqualTo(2);
+        assertThat(count2).isEqualTo(1);
 
 
     }
@@ -42,13 +43,15 @@ public class SingletonWithPrototypeTest1 {
     @Scope("singleton")
     static class ClientBean {
 
-        private final PrototypeBean prototypeBean;
-
-        public ClientBean(PrototypeBean prototypeBean) {
-            this.prototypeBean = prototypeBean;
+        private final Provider<PrototypeBean> prototypeBeanProvider;
+        // 옛날에는 ObjectFactory라는 걸로 사용을 했다. 요즘은 ObjectProvider를 쓰는 게 좋은 것 같다.
+        // 하지만 ObjectFactory든 ObjectProvider든 스프링에 의존적인 게 문제이다. 이를 해결하기 위해 나온 게 JSR-330 Provider다.
+        public ClientBean(Provider<PrototypeBean> prototypeBeanProvider) {
+            this.prototypeBeanProvider = prototypeBeanProvider;
         }
 
         public int logic() {
+            PrototypeBean prototypeBean = prototypeBeanProvider.get();
             prototypeBean.addCount();
             return prototypeBean.getCount();
         }

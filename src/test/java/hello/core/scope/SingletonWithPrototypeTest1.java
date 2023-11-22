@@ -46,6 +46,8 @@ public class SingletonWithPrototypeTest1 {
         private final Provider<PrototypeBean> prototypeBeanProvider;
         // 옛날에는 ObjectFactory라는 걸로 사용을 했다. 요즘은 ObjectProvider를 쓰는 게 좋은 것 같다.
         // 하지만 ObjectFactory든 ObjectProvider든 스프링에 의존적인 게 문제이다. 이를 해결하기 위해 나온 게 JSR-330 Provider다.
+        // 즉, ObjectProvider = 의존관계가 없다면 사용
+        //     Provider = 스프링이 아닌 다른 컨테이너에서도 사용할 수 있어야 된다면 사용
         public ClientBean(Provider<PrototypeBean> prototypeBeanProvider) {
             this.prototypeBeanProvider = prototypeBeanProvider;
         }

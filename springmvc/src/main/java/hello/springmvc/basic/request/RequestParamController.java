@@ -1,10 +1,12 @@
 package hello.springmvc.basic.request;
 
+import hello.springmvc.basic.HelloData;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -73,4 +75,61 @@ public class RequestParamController {
 		 */
 	}
 
+	/**
+	 // 	 * 이것이 원래 코드라면 아래 코드는 요즘 사용 가능
+	 // 	 */
+	// @ResponseBody
+	// @RequestMapping("/model-attribute-v1")
+	// public String modelAttributeV1(@RequestParam String username, @RequestParam int age) {
+	//
+	//
+	//
+	// 	HelloData helloData = new HelloData();
+	// 	helloData.setUsername(username);
+	// 	helloData.setAge(age);
+	//
+	// 	log.info("username = {}, age = {}", helloData.getUsername(), helloData.getAge());
+	//
+	// 	return "ok";
+	//
+	// }
+
+	/**
+	 *
+	 * 위 메서드와 동일
+	 *
+	 */
+	@ResponseBody
+	@RequestMapping("/model-attribute-v1")
+	public String modelAttributeV1(@ModelAttribute HelloData helloData) {
+		log.info("username = {}, age = {}", helloData.getUsername(), helloData.getAge());
+		return "ok";
+		/**
+		 * @ModelAttribute 실행 순서
+		 * 1. HelloData 객체를 생성한다.
+		 * 2. 요청 파라미터의 이름으로 HelloData 객체의 프로퍼티를 찾는다.
+		 * 3. 해당 프로퍼티의 setter를 호출해서 파라미터에 바인딩한다.
+		 * 3. 예시) HelloData에 만약 username이 있다면 setUsername()을 호출해서 값을 바인딩 한다는 뜻
+		 */
+
+		/**
+		 * 프로퍼티 ? HelloData로 따지면 username과 age처럼 그 객체가 갖고 있는 속성.
+		 */
+
+		/**
+		 * 바인딩 오류 ? int 프로퍼티에 만약 문자열 값이 들어간다면 에러가 발생한다.
+		 */
+	}
+
+	@ResponseBody
+	@RequestMapping("/model-attribute-v2")
+	public String modelAttributeV2(HelloData helloData) {
+		log.info("username = {}, age = {}", helloData.getUsername(), helloData.getAge());
+		return "ok";
+		// @ModelAttribute도 생략 가능하다.
+		// 하지만 @RequestParam도 생략이 가능하다 그렇다면 스프링이 나누는 기준이 무엇일까?
+		// String, int, Integer 처럼 단순 타입이라면 @RequestParam을 사용한다.
+		// 그 외의 타입들은 @ModelAttribue를 사용한다. (argument resolver로 지정한 타입 외의 타입들)
+
+	}
 }

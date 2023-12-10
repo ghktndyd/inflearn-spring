@@ -40,12 +40,12 @@ class ItemRepositoryTest {
 
 		itemRepository.save(item1);
 		itemRepository.save(item2);
+
 		// When
 		List<Item> items = itemRepository.findAll();
 
 		// Then
 		assertThat(items.size()).isEqualTo(2);
-
 		assertThat(items).contains(item1, item2);
 	}
 

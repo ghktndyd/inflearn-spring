@@ -77,12 +77,20 @@ public class BasicItemController {
         return "basic/item";
     }
 
-    @PostMapping("/add")
+//    @PostMapping("/add")
     public String addItemV4(Item item) {
         // @ModelAttribute도 생략 가능, String, int 같은 타입은 @RequestParam이 생략된 걸로 해석
         itemRepository.save(item);
 
         return "basic/item";
+    }
+
+    @PostMapping("/add")
+    public String addItemV5(Item item) {
+        // @ModelAttribute도 생략 가능, String, int 같은 타입은 @RequestParam이 생략된 걸로 해석
+        itemRepository.save(item);
+
+        return "redirect:/basic/items/" + item.getId();
     }
 
     // 상품 수정 폼

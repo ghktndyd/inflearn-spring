@@ -10,6 +10,7 @@ import hello.itemservice.domain.item.Item;
 import hello.itemservice.domain.item.ItemRepository;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @RequiredArgsConstructor
 @RequestMapping("/basic/items")
@@ -77,7 +78,7 @@ public class BasicItemController {
         return "basic/item";
     }
 
-//    @PostMapping("/add")
+    //    @PostMapping("/add")
     public String addItemV4(Item item) {
         // @ModelAttribute도 생략 가능, String, int 같은 타입은 @RequestParam이 생략된 걸로 해석
         itemRepository.save(item);
@@ -85,12 +86,22 @@ public class BasicItemController {
         return "basic/item";
     }
 
-    @PostMapping("/add")
+    //    @PostMapping("/add")
     public String addItemV5(Item item) {
-        // @ModelAttribute도 생략 가능, String, int 같은 타입은 @RequestParam이 생략된 걸로 해석
         itemRepository.save(item);
 
         return "redirect:/basic/items/" + item.getId();
+    }
+
+    @PostMapping("/add")
+    public String addItemV6(Item item, RedirectAttributes redirectAttributes) {
+        Item savedItem = itemRepository.save(item);
+
+        redirectAttributes.addAttribute("itemId", savedItem.getId());
+        redirectAttributes.addAttribute("status", true);
+
+        // redirectAttributes.addAttribute("itemId", savedItem.getId()); 의 "itemId"가 {} 값으로 치환
+        return "redirect:/basic/items/{itemId}";
     }
 
     // 상품 수정 폼

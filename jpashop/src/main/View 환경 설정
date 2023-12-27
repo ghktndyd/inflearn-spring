@@ -1,3 +1,0 @@
-### 스프링부트에서 뷰를 가져오는 관례
-
-`resources - templates - 컨트롤러에서 리턴하는 view name`

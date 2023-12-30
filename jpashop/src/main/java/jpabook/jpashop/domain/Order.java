@@ -19,11 +19,14 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "orders")
 @Entity
 public class Order {
@@ -80,6 +83,7 @@ public class Order {
 	}
 
 	//== 비즈니스 로직 ==//
+
 	/**
 	 * 주문 취소
 	 */
@@ -96,6 +100,7 @@ public class Order {
 	}
 
 	//== 조회 로직 ==//
+
 	/**
 	 * 전체 주문 가격 조회
 	 */

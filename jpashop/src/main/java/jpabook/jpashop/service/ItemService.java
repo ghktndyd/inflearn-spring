@@ -14,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 public class ItemService {
 
-	private ItemRepository itemRepository;
+	private final ItemRepository itemRepository;
 
 	@Transactional
 	public void saveItem(Item item) {

@@ -16,48 +16,42 @@ import jpabook.jpashop.exception.NotEnoughStockException;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
+@Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "dtype")
-@Entity
+@Getter
+@Setter
 public abstract class Item {
 
-	@Column(name = "item_id")
-	@GeneratedValue
 	@Id
+	@GeneratedValue
+	@Column(name = "item_id")
 	private Long id;
 
 	private String name;
-
-	private int stockQuantity;
-
 	private int price;
+	private int stockQuantity;
 
 	@ManyToMany(mappedBy = "items")
 	private List<Category> categories = new ArrayList<>();
 
-	//== 비즈니스 로직==// -> 도메인 주도 설계를 할 때는 도메인에 대한 비즈니스 로직을 엔티티 안에 작성한다.
+	//==비즈니스 로직==//
 
 	/**
-	 * 재고를 증가하게 하는 메서드
-	 * @param quantity
+	 * stock 증가
 	 */
 	public void addStock(int quantity) {
 		this.stockQuantity += quantity;
 	}
 
 	/**
-	 * 재고를 줄인다.
-	 * @param quantity
+	 * stock 감소
 	 */
 	public void removeStock(int quantity) {
 		int restStock = this.stockQuantity - quantity;
-
 		if (restStock < 0) {
 			throw new NotEnoughStockException("need more stock");
 		}
-
 		this.stockQuantity = restStock;
 	}
 }

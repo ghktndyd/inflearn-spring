@@ -1,5 +1,6 @@
 package jpabook.jpashop.domain;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
@@ -22,7 +23,7 @@ public class Delivery {
 	@Id
 	private Long id;
 
-	@OneToOne(mappedBy = "delivery", fetch = FetchType.LAZY)
+	@OneToOne(mappedBy = "delivery", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Order order;
 
 	@Embedded
